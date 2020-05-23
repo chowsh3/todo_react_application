@@ -1,0 +1,12 @@
+.Nav{
+    margin-bottom: 20px;
+    
+}
+
+.navbar-nav .nav-link{
+    float:left ;
+}
+
+.side{
+    float: right;
+}
