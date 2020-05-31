@@ -1,9 +1,35 @@
-.task-item__text{
+/* .task-item__text{
     color: darkblue;
+} */
+.btn__delete{
+    float: right;
 }
 
-.task-item__done-button,
-.task-item__delete-button{
-    background-color: lightcoral;
+.btn__edit {
+    float: right;
+}
+.btn__reminder {
+    float: right;
 
+}
+.task__date{
+    float: right;
+}
+
+
+.card{
+    
+    background-color: white;
+    border: 1px solid silver;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px; 
+}
+
+.task--complete .task__text {
+    text-decoration: line-through;
+}
+
+.task--complete .task__date{
+    text-decoration: line-through;
 }

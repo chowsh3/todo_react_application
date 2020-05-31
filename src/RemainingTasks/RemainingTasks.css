@@ -1,9 +1,13 @@
-.task-item__text{
-    color: darkblue;
-}
+.remaining-tasks {
+    background-color: #282c34;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    margin: 30px;
 
-.task-item__done-button,
-.task-item__delete-button{
-    background-color: lightcoral;
-
-}
+    padding:5px;
+    
+  }
