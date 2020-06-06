@@ -3,13 +3,26 @@
 } */
 .btn__delete{
     float: right;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    
 }
 
 .btn__edit {
     float: right;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: grey;
+    color: white;
 }
 .btn__reminder {
     float: right;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: orange;
+    color: white;
 
 }
 .task__date{
@@ -20,7 +33,7 @@
 .card{
     
     background-color: white;
-    border: 1px solid silver;
+    border: 1px solid grey;
     border-radius: 5px;
     padding: 10px;
     margin: 10px; 

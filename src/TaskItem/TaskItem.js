@@ -2,6 +2,12 @@ import React from 'react';
 import './TaskItem.css';
 
 function TaskItem(props) {
+    // function handleDeleteClick() {
+    //     console.log("the delete has been clicked");
+    //     console.log(props.id);
+    //     props.deleteTask(props.id);
+    // } --function is now in onclick shorthand, check delete button below
+
     return (
         <div className={`card task ${ props.completed ?'task--complete' : 'task--active'}`}>
 
@@ -11,12 +17,14 @@ function TaskItem(props) {
                 </span>
 
             <div className="buttons__action">
-                <input type="checkbox" aria-label="Checkbox for following text input"></input>
+                <input type="checkbox" aria-label="Checkbox for following text input" checked = {props.completed} 
+                        onChange = {props.completed ? () => props.unCompleteTask(props.id) :() => props.completeTask(props.id)}
+                ></input>
 
                 
 
-                <button className="btn__delete btn-danger">
-                    <svg className="bi bi-trash" width="1em" height="1em"
+                <button type = "button" className="btn__delete " onClick = {() => props.deleteTask(props.id)}>
+                    <svg className="bi bi-trash" width="1em" 
                         viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
@@ -26,7 +34,7 @@ function TaskItem(props) {
                     </svg>
                 </button>
 
-                <button className="btn__edit btn-secondary">
+                <button className="btn__edit">
                     <svg className="bi bi-pencil" width="1em" height="1em"
                         viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -38,7 +46,7 @@ function TaskItem(props) {
                     </svg>
                 </button>
 
-                { props.completed===false && <button className="btn__reminder btn-warning">
+                { props.completed===false && <button className="btn__reminder">
                     <svg className="bi bi-bell" width="1em"
                         height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z" />
