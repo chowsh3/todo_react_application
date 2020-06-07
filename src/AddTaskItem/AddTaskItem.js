@@ -1,34 +1,56 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import './AddTaskItem.css';
 
-function AddTaskItem() {
+function AddTaskItem(props) {
+    const [text, setText ] = useState("");
+    const [dueDate, setDueDate ] = useState ("");
+
+    function handleTextChange (event) {
+        setText(event.target.value);
+        // console.log(event.target.value);
+    }
+
+    function handleDateChange (event) {
+        setDueDate (event.target.value);
+    }
+
+    function handleAddTaskClick () {
+        props.addTask(text, dueDate);
+
+    }
+
     return (
-        <div className="Add-task-item col">
-            <div className="row">
-                <div className="a col-10">
-                    <input className="form-control"
-                        type="text"
-                        placeholder="What do you want to do?">
+        <Fragment>
+              
+            <form className ="form-inline add-task">
+                <label className = "sr-only" htmlFor = "taskInput">Add new task</label>
+                <input 
+                    type="text" 
+                    className="form-control add-task__input-field add-task--text" 
+                    id = "taskInput"  
+                    onChange = {handleTextChange }
+                    value = {text}/>
+                <input 
+                    type = "date" 
+                    className = "form-control add-tast__input-field add-task--date col-6" 
+                    onChange = {handleDateChange}
+                    value = {dueDate} />
 
-                    </input>
-                </div>
-
-                
-                <button type="button" className="btn btn-dark"><svg className="bi bi-plus-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd" />
-                </svg>
+                <button 
+                    type="button" 
+                    className="btn btn-dark add-task_add-button"
+                    onClick = { handleAddTaskClick }
+                    
+                    >Add
                 </button>
 
-              
-               
+            </form>
+                
 
-            </div>
+        
 
-        </div>
-
-
+        </Fragment>
+      
     );
 }
 

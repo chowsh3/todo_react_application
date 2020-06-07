@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 import Header from "./Nav/Nav"
 import TaskItem from "./TaskItem/TaskItem"
 import AddTaskItem from "./AddTaskItem/AddTaskItem"
@@ -13,11 +15,11 @@ function App() {
   // const setTasks = useState()[1];
 
   const [tasks, setTasks] = useState([
-    { text: "paint", completed: false, dueDate: "2020-05-01", id: '001'},
-    { text: "paint2", completed: true, dueDate: "2020-06-02", id: '002'},
-    { text: "paint3", completed: true, dueDate: "2020-07-03", id: '003'},
-    { text: "paint4", completed: false, dueDate: "2020-08-04", id: '004'},
-    { text: "paint5", completed: true, dueDate: "2020-08-05", id: '005'},
+    { text: "paint", completed: false, dueDate: "2020-05-01", id: uuidv4()},
+    { text: "paint2", completed: true, dueDate: "2020-06-02", id: uuidv4()},
+    { text: "paint3", completed: true, dueDate: "2020-07-03", id: uuidv4()},
+    { text: "paint4", completed: false, dueDate: "2020-08-04", id: uuidv4()},
+    { text: "paint5", completed: true, dueDate: "2020-08-05", id: uuidv4()},
   ]);
 
   const [ deletedTasks, setDeletedTasks ] = useState([])
@@ -60,11 +62,28 @@ function App() {
 
   }
 
+  function addTask (text, dueDate) {
+    //get a copy of the tasks that are already there
+    //create a new task, and merge it into this array
+    //update the task state
+
+    const newTask = { 
+      text: text, 
+      completed: false, 
+      dueDate: dueDate, 
+      id: uuidv4()
+    }
+
+    const updatedTasks = [ ...tasks, newTask]
+
+    setTasks(updatedTasks);
+  }
+
 
   return (
     <div className="App">
       <Header/>
-      <AddTaskItem/>
+      <AddTaskItem addTask = { addTask }/>
       <RemainingTasks count = { activeTasks.length}/>
       
       

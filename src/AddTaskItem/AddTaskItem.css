@@ -1,5 +1,5 @@
 
-.Add-task-item{
+.add-task{
     justify-content: center;
     margin: auto;
     padding-left:5%;
@@ -7,5 +7,30 @@
 
 
 
+.add-task__input-field {
+    margin-bottom: 4px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
 
 
+
+@media only screen and (min-width:576px) {
+    .add-task__input-field {
+        margin-left: 0;
+        margin-right: 0;
+        min-width: 300px;
+    }
+
+    .add-task--date {
+        margin-left: 10px;
+        min-width: 100px;
+    }
+
+    .add-task__add-button {
+        margin-bottom: 4px;
+        margin-left: 8px;
+    }
+
+   
+}
