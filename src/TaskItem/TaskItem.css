@@ -35,18 +35,19 @@
 .card{
     
     background-color: white;
-    border: 1px solid grey;
+    border: 1px solid rgb(201, 196, 196);
     border-radius: 5px;
     padding: 10px;
     margin: 10px; 
 }
 
-.task--complete  {
+
+.task--complete .text_box{
+    color: grey;
     text-decoration: line-through;
 }
 
-.task--complete .task__date{
-    text-decoration: line-through;
+.task--complete .task__date {
    display: none;
 }
 

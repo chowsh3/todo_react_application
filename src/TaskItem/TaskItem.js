@@ -13,8 +13,6 @@ function TaskItem(props) {
     return (
         <div className={`card task ${ props.completed ?'task--complete' : 'task--active'}`}>
 
-            
-            
             <input className= "text_box" type = "text"  value= {props.text} id={props.id} 
                 onChange = { (event) => props.editTask(event.target.value, props.id)}
             ></input>
@@ -22,8 +20,6 @@ function TaskItem(props) {
                 onChange = {(event) => props.editDate(event.target.value, props.id)}
             ></input>
             
-            
-
             <div className="buttons__action">
                 <input type="checkbox" aria-label="Checkbox for following text input" checked = {props.completed} 
                         onChange = {props.completed ? () => props.unCompleteTask(props.id) :() => props.completeTask(props.id)}
@@ -42,23 +38,7 @@ function TaskItem(props) {
                     </svg>
                 </button>
 
-           
-        
-
-           
-
-              
-
-             
-
-
-
             </div>
-
-
-
-
-
 
         </div>
     );
