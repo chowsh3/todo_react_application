@@ -27,6 +27,8 @@
 }
 .task__date{
     float: right;
+    border: none;
+
 }
 
 
@@ -39,10 +41,16 @@
     margin: 10px; 
 }
 
-.task--complete .task__text {
+.task--complete  {
     text-decoration: line-through;
 }
 
 .task--complete .task__date{
     text-decoration: line-through;
+   display: none;
+}
+
+.text_box{
+    border: none;
+    
 }

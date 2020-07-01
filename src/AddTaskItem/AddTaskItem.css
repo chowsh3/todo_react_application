@@ -5,13 +5,25 @@
     padding-left:5%;
 }
 
-
-
-.add-task__input-field {
-    margin-bottom: 4px;
+.add-task--text{
+margin-bottom: 4px;
     margin-left: 20px;
     margin-right: 20px;
 }
+
+
+.add-task--date{
+    width: 200px;
+
+}
+
+
+
+/* .add-task__input-field {
+    margin-bottom: 4px;
+    margin-left: 20px;
+    margin-right: 20px;
+} */
 
 
 

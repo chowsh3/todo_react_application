@@ -32,7 +32,7 @@ function AddTaskItem(props) {
                     value = {text}/>
                 <input 
                     type = "date" 
-                    className = "form-control add-tast__input-field add-task--date col-6" 
+                    className = "form-control add-dask__input-field add-task--date " 
                     onChange = {handleDateChange}
                     value = {dueDate} />
 

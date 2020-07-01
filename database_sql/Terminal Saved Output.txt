@@ -1,0 +1,297 @@
+Last login: Fri Jun 12 23:40:04 on ttys004
+shobirchowdhery@Shobirs-MacBook-Pro ~ % mysql --version 
+mysql  Ver 8.0.19 for osx10.15 on x86_64 (Homebrew)
+shobirchowdhery@Shobirs-MacBook-Pro ~ % Mysql -u root -p -h tr-course-rds-instance.czo8vlnv98xh.eu-west-2.rds.amazonaws.com
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 6717
+Server version: 8.0.17 Source distribution
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW databases;
++--------------------+
+| Database           |
++--------------------+
+| bookshop           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| todos              |
++--------------------+
+5 rows in set (0.05 sec)
+
+mysql> USE todos;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_todos |
++-----------------+
+| Task            |
+| User            |
++-----------------+
+2 rows in set (0.07 sec)
+
+mysql> DESCRIBE User;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| userId | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(255) | NO   |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM User;
++--------+------------+
+| userId | name       |
++--------+------------+
+|      1 | User Test1 |
++--------+------------+
+1 row in set (0.01 sec)
+
+mysql> INSERT INTO User (name) VALUES ("User test2");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM User;
++--------+------------+
+| userId | name       |
++--------+------------+
+|      1 | User Test1 |
+|      2 | User test2 |
++--------+------------+
+2 rows in set (0.02 sec)
+
+mysql> INSERT INTO User (name) VALUES ("User test3");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> DESCRIBE Task;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| taskId    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| completed | tinyint(1)   | NO   |     | NULL    |                |
+| date      | date         | YES  |     | NULL    |                |
+| text      | varchar(255) | NO   |     | NULL    |                |
+| userId    | int(11)      | NO   | MUL | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+5 rows in set (0.02 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task1User1", true, 2020-10-13, 1);
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> SELECT * FROM Task WHERE taskId=1;
++--------+-----------+------------+------------+--------+
+| taskId | completed | date       | text       | userId |
++--------+-----------+------------+------------+--------+
+|      1 |         1 | 0000-00-00 | Task1User1 |      1 |
++--------+-----------+------------+------------+--------+
+1 row in set (0.03 sec)
+
+mysql> UPDATE Task SET date="2020-10-01";
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Task Where taskId=1;
++--------+-----------+------------+------------+--------+
+| taskId | completed | date       | text       | userId |
++--------+-----------+------------+------------+--------+
+|      1 |         1 | 2020-10-01 | Task1User1 |      1 |
++--------+-----------+------------+------------+--------+
+1 row in set (0.02 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task2User1", 0, "2020-10-13", 1)
+    -> INSERT INTO Task (text, completed, date, userId) VALUES ("Task3User1", 0, "2020-10-14", 1)
+    -> INSERT INTO Task (text, completed, date, userId) VALUES ("Task4User1", 0, "2020-10-15", 1)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSERT INTO Task (text, completed, date, userId) VALUES ("Task3User1", 0, "2020-' at line 2
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task2User1", 0, "2020-10-13", 1);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task3User1", 0, "2020-10-14", 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task4User1", 0, "2020-10-15", 1);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM Task Where userId=1;
++--------+-----------+------------+------------+--------+
+| taskId | completed | date       | text       | userId |
++--------+-----------+------------+------------+--------+
+|      1 |         1 | 2020-10-01 | Task1User1 |      1 |
+|      2 |         0 | 2020-10-13 | Task2User1 |      1 |
+|      3 |         0 | 2020-10-14 | Task3User1 |      1 |
+|      4 |         0 | 2020-10-15 | Task4User1 |      1 |
++--------+-----------+------------+------------+--------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task1User2", 0, "2020-11-1", 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task2User2", 0, "2020-11-13", 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task3User2", 0, "2020-11-14", 2);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task4User2", 0, "2020-11-15", 2);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM Task Where userId=2;
++--------+-----------+------------+------------+--------+
+| taskId | completed | date       | text       | userId |
++--------+-----------+------------+------------+--------+
+|      5 |         0 | 2020-11-01 | Task1User2 |      2 |
+|      6 |         0 | 2020-11-13 | Task2User2 |      2 |
+|      7 |         0 | 2020-11-14 | Task3User2 |      2 |
+|      8 |         0 | 2020-11-15 | Task4User2 |      2 |
++--------+-----------+------------+------------+--------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task1User3", 0, "2020-07-1", 3);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task2User3", 0, "2020-07-13", 3);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task3User3", 0, "2020-07-14", 3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task4User3", 0, "2020-07-15", 3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM User;
++--------+------------+
+| userId | name       |
++--------+------------+
+|      1 | User Test1 |
+|      2 | User test2 |
+|      3 | User test3 |
++--------+------------+
+3 rows in set (0.04 sec)
+
+mysql> SELECT * FROM Task Where userId=3;
++--------+-----------+------------+------------+--------+
+| taskId | completed | date       | text       | userId |
++--------+-----------+------------+------------+--------+
+|      9 |         0 | 2020-07-01 | Task1User3 |      3 |
+|     10 |         0 | 2020-07-13 | Task2User3 |      3 |
+|     11 |         0 | 2020-07-14 | Task3User3 |      3 |
+|     12 |         0 | 2020-07-15 | Task4User3 |      3 |
++--------+-----------+------------+------------+--------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task1User4", 1, "2020-08-1", 4);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`todos`.`Task`, CONSTRAINT `Task_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`))
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task2User4", 1, "2020-08-13", 4);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`todos`.`Task`, CONSTRAINT `Task_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`))
+mysql> INSERT INTO Task (text, completed, date, userId) VALUES ("Task3User4", 1, "2020-08-14", 4);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`todos`.`Task`, CONSTRAINT `Task_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`))
+mysql> SELECT text, completed, date, Task.userId, name AS userName FROM Task JOIN User ON Task.userId = User.userId;
++------------+-----------+------------+--------+------------+
+| text       | completed | date       | userId | userName   |
++------------+-----------+------------+--------+------------+
+| Task1User1 |         1 | 2020-10-01 |      1 | User Test1 |
+| Task2User1 |         0 | 2020-10-13 |      1 | User Test1 |
+| Task3User1 |         0 | 2020-10-14 |      1 | User Test1 |
+| Task4User1 |         0 | 2020-10-15 |      1 | User Test1 |
+| Task1User2 |         0 | 2020-11-01 |      2 | User test2 |
+| Task2User2 |         0 | 2020-11-13 |      2 | User test2 |
+| Task3User2 |         0 | 2020-11-14 |      2 | User test2 |
+| Task4User2 |         0 | 2020-11-15 |      2 | User test2 |
+| Task1User3 |         0 | 2020-07-01 |      3 | User test3 |
+| Task2User3 |         0 | 2020-07-13 |      3 | User test3 |
+| Task3User3 |         0 | 2020-07-14 |      3 | User test3 |
+| Task4User3 |         0 | 2020-07-15 |      3 | User test3 |
++------------+-----------+------------+--------+------------+
+12 rows in set (0.11 sec)
+
+mysql> UPDATE Task SET completed = 1 WHERE userId =1;
+Query OK, 3 rows affected (0.02 sec)
+Rows matched: 4  Changed: 3  Warnings: 0
+
+mysql> SELECT * FROM Task where userId = 1;
++--------+-----------+------------+------------+--------+
+| taskId | completed | date       | text       | userId |
++--------+-----------+------------+------------+--------+
+|      1 |         1 | 2020-10-01 | Task1User1 |      1 |
+|      2 |         1 | 2020-10-13 | Task2User1 |      1 |
+|      3 |         1 | 2020-10-14 | Task3User1 |      1 |
+|      4 |         1 | 2020-10-15 | Task4User1 |      1 |
++--------+-----------+------------+------------+--------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT DATEADD(day, 3) where userId = 3;
+ERROR 1305 (42000): FUNCTION todos.DATEADD does not exist
+mysql> UPDATE Task SET date = DATEADD(day,3) WHERE userId = 3;
+ERROR 1305 (42000): FUNCTION todos.DATEADD does not exist
+mysql> SELECT ADDDATE(INTERVAL 3 DAY) WHERE userId =3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') WHERE userId =3' at line 1
+mysql> UPDATE Task SET date = ADDDATE(INTERVAL 3 DAY) WHERE userId =3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') WHERE userId =3' at line 1
+mysql> SELECT * FROM Task Where userId = 3;
++--------+-----------+------------+------------+--------+
+| taskId | completed | date       | text       | userId |
++--------+-----------+------------+------------+--------+
+|      9 |         0 | 2020-07-01 | Task1User3 |      3 |
+|     10 |         0 | 2020-07-13 | Task2User3 |      3 |
+|     11 |         0 | 2020-07-14 | Task3User3 |      3 |
+|     12 |         0 | 2020-07-15 | Task4User3 |      3 |
++--------+-----------+------------+------------+--------+
+4 rows in set (0.03 sec)
+
+mysql> UPDATE Task SET date, SELECT ADDDATE(INTERVAL 3 DAY);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', SELECT ADDDATE(INTERVAL 3 DAY)' at line 1
+mysql> UPDATE Task SET date = DATE_ADD(date, INTERVAL 3 DAY) WHERE userId =3;
+Query OK, 4 rows affected (0.02 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> SELECT * FROM Task WHERE userId =3;
++--------+-----------+------------+------------+--------+
+| taskId | completed | date       | text       | userId |
++--------+-----------+------------+------------+--------+
+|      9 |         0 | 2020-07-04 | Task1User3 |      3 |
+|     10 |         0 | 2020-07-16 | Task2User3 |      3 |
+|     11 |         0 | 2020-07-17 | Task3User3 |      3 |
+|     12 |         0 | 2020-07-18 | Task4User3 |      3 |
++--------+-----------+------------+------------+--------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT text, completed, date, Task.userId, name AS userName FROM Task JOIN User ON Task.userId = User.userId ORFER BY DATE(date);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORFER BY DATE(date)' at line 1
+mysql> SELECT text, completed, date, Task.userId, name AS userName FROM Task JOIN User ON Task.userId = User.userId ORDER BY DATE(date);
++------------+-----------+------------+--------+------------+
+| text       | completed | date       | userId | userName   |
++------------+-----------+------------+--------+------------+
+| Task1User3 |         0 | 2020-07-04 |      3 | User test3 |
+| Task2User3 |         0 | 2020-07-16 |      3 | User test3 |
+| Task3User3 |         0 | 2020-07-17 |      3 | User test3 |
+| Task4User3 |         0 | 2020-07-18 |      3 | User test3 |
+| Task1User1 |         1 | 2020-10-01 |      1 | User Test1 |
+| Task2User1 |         1 | 2020-10-13 |      1 | User Test1 |
+| Task3User1 |         1 | 2020-10-14 |      1 | User Test1 |
+| Task4User1 |         1 | 2020-10-15 |      1 | User Test1 |
+| Task1User2 |         0 | 2020-11-01 |      2 | User test2 |
+| Task2User2 |         0 | 2020-11-13 |      2 | User test2 |
+| Task3User2 |         0 | 2020-11-14 |      2 | User test2 |
+| Task4User2 |         0 | 2020-11-15 |      2 | User test2 |
++------------+-----------+------------+--------+------------+
+12 rows in set (0.01 sec)
+
+mysql> mysqldump --column-statistics=0 -u "root" -p -h "tr-course-rds-instance.czo8vlnv98xh.eu-west-2.rds.amazonaws.com" "todos"  > database.sql
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump --column-statistics=0 -u "root" -p -h "tr-course-rds-instance.czo8vlnv' at line 1
+mysql> mysqldump --column-statistics=0 -u "root" -p -h "tr-course-rds-instance.czo8vlnv98xh.eu-west-2.rds.amazonaws.com" "todos"  > database.sql
+    -> mysqldump --column-statistics=0 -u "root" -p -h "tr-course-rds-instance.czo8vlnv98xh.eu-west-2.rds.amazonaws.com" "todos"  > database.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump --column-statistics=0 -u "root" -p -h "tr-course-rds-instance.czo8vlnv' at line 1
+mysql> mysqldump --column-statistics=0 -u "root" -p -h "tr-course-rds-instance.czo8vlnv98xh.eu-west-2.rds.amazonaws.com" "todos"  > database.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump --column-statistics=0 -u "root" -p -h "tr-course-rds-instance.czo8vlnv' at line 1
+mysql> mysqldump --column-statistics=0 -u "root" -p -h "tr-course-rds-instance.czo8vlnv98xh.eu-west-2.rds.amazonaws.com" "todos"  > database.sql

@@ -79,6 +79,30 @@ function App() {
     setTasks(updatedTasks);
   }
 
+  function editTask (text, id){
+
+    const updatedTask = tasks.map (task =>{
+      if(task.id === id){
+        task.text = text;
+      }
+      return task;
+    })
+    setTasks(updatedTask);
+  }
+
+  function editDate (dueDate, id){
+    const updatedTask = tasks.map (task =>{
+      if(task.id === id){
+        task.dueDate = dueDate;
+      }
+      return task;
+    })
+    setTasks(updatedTask)
+  }
+   
+
+
+ 
 
   return (
     <div className="App">
@@ -88,7 +112,7 @@ function App() {
       
       
       <ul className = "task-list container">
-       { activeTasks.map(task=> <TaskItem unCompleteTask = {unCompleteTask} completeTask = {completeTask} deleteTask = {deleteTask} id={task.id} key={ task.id } text={task.text} completed ={task.completed} dueDate = {task.dueDate}/>)}
+       { activeTasks.map(task=> <TaskItem editDate = {editDate} editTask = {editTask} unCompleteTask = {unCompleteTask} completeTask = {completeTask} deleteTask = {deleteTask} id={task.id} key={ task.id } text={task.text} completed ={task.completed} dueDate = {task.dueDate}/>)}
        
        {/* /* <TaskItem text="paint" completed={false} dueDate="2020-05-01"/>
        <TaskItem text="paint2" completed={true} dueDate= "2020-06-01"/>
@@ -99,7 +123,7 @@ function App() {
       <CompletedTasks count = {completedTasks.length}/>
       
       <ul className="container">
-      { completedTasks.map(task=> <TaskItem unCompleteTask = {unCompleteTask} completeTask = {completeTask} deleteTask = {deleteTask} id={task.id} key={ task.text } text={task.text} completed ={task.completed} dueDate = {task.dueDate}/>)}
+      { completedTasks.map(task=> <TaskItem editDate = {editDate} editTask = {editTask} unCompleteTask = {unCompleteTask} completeTask = {completeTask} deleteTask = {deleteTask} id={task.id} key={ task.text } text={task.text} completed ={task.completed} dueDate = {task.dueDate}/>)}
       </ul>
     </div>
   );
