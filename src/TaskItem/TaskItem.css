@@ -40,7 +40,9 @@
     padding: 10px;
     margin: 10px; 
 }
-
+.task__active .task__date:not(:empty) {
+    color: white;
+}
 
 .task--complete .text_box{
     color: grey;

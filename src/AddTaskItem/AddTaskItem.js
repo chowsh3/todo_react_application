@@ -15,9 +15,18 @@ function AddTaskItem(props) {
     }
 
     function handleAddTaskClick () {
-        props.addTask(text, dueDate);
-
+        // props.addTask(text, dueDate);
+        let userText = text.replace(/^\s+/, '').replace(/\s+$/, '');
+        if(userText ===""){
+            alert("must be filled in");
+            
+        } else {
+            return props.addTask(text, dueDate);
+        };
+    
     }
+
+
 
     return (
         <Fragment>
@@ -28,13 +37,16 @@ function AddTaskItem(props) {
                     type="text" 
                     className="form-control add-task__input-field add-task--text" 
                     id = "taskInput"  
+                    placeholder="What Tasks do you want to do?" 
                     onChange = {handleTextChange }
                     value = {text}/>
                 <input 
                     type = "date" 
-                    className = "form-control add-dask__input-field add-task--date " 
+                    className = "form-control add-date__input-field add-task--date " 
                     onChange = {handleDateChange}
-                    value = {dueDate} />
+                    value = {dueDate} 
+                    />
+                    
 
                 <button 
                     type="button" 

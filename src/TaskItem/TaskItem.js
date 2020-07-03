@@ -1,4 +1,5 @@
 import React from 'react';
+import Calendar from 'react-calendar';
 
 import './TaskItem.css';
 
@@ -9,16 +10,21 @@ function TaskItem(props) {
     //     console.log(props.id);
     //     props.deleteTask(props.id);
     // } --function is now in onclick shorthand, check delete button below
-
+    let date = props.dueDate;
+    let newDate = date.substring(0,10);
+  
+    
     return (
+        
         <div className={`card task ${ props.completed ?'task--complete' : 'task--active'}`}>
 
             <input className= "text_box" type = "text"  value= {props.text} id={props.id} 
                 onChange = { (event) => props.editTask(event.target.value, props.id)}
             ></input>
-            <input className="task__date" type = "date" value = {props.dueDate} id={props.id} 
+            <input className="task__date" type = "date" value= {newDate} id={props.id} 
                 onChange = {(event) => props.editDate(event.target.value, props.id)}
             ></input>
+           
             
             <div className="buttons__action">
                 <input type="checkbox" aria-label="Checkbox for following text input" checked = {props.completed} 
